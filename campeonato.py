@@ -1,4 +1,3 @@
-Python
 print("========================================")
 print("   SISTEMA DE CAMPEONATO: MELHOR DE N   ")
 print("========================================\n")
