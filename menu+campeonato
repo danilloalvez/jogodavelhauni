@@ -1,1 +1,111 @@
+print("===== CAMPEONATO =====")
+print("1 - Jogar")
+print("2 - Ver regras")
+print("3 - Ver placar")
+print("4 - Sair")
+
+vitorias_jogador = 0
+vitorias_adversario = 0
+jogador1 = ""
+jogador2 = ""
+
+opcao = input("Escolha uma opção:")
+
+while opcao != "4":
+
+    if opcao == "1":
+        print("\n===== INICIAR CAMPEONATO =====")
+        print("1 - Melhor de 3")
+        print("2 - Melhor de 5")
+        print("3 - Personalizado")
+
+        modo = input("Escolha o tipo de campeonato:")
+
+        if modo == "1":
+            n_partidas = 3
+        elif modo == "2":
+            n_partidas = 5
+        elif modo == "3":
+            n_partidas = int(input("Digite o número de partidas:"))
+        else:
+            print("Opção inválida!")
+            n_partidas = 0
+
+        if n_partidas > 0:
+            if n_partidas % 2 == 0:
+                print("Digite um número ímpar de partidas!")
+            else:
+                print("\nCampeonato iniciado!")
+                vitorias_necessarias = (n_partidas // 2) + 1
+
+                print("Vitórias necessárias:", vitorias_necessarias)
+
+                jogador1 = input("Nome do Jogador 1:")
+                jogador2 = input("Nome do Jogador 2:")
+
+                vitorias_jogador =0
+                vitorias_adversario =0
+                partida_atual =1
+
+                while (
+                    vitorias_jogador < vitorias_necessarias
+                    and vitorias_adversario < vitorias_necessarias
+                    and partida_atual <= n_partidas
+                ):
+                    print("\n--- Partida", partida_atual, "de", n_partidas, "---")
+                    print("Placar:", jogador1, vitorias_jogador,
+                          "x", vitorias_adversario, jogador2)
+
+                    vencedor = input(
+                        "Digite 1 para " + jogador1 +
+                        " ou 2 para " + jogador2 + ": "
+                    )
+
+                    if vencedor == "1":
+                        vitorias_jogador += 1
+                        print("Vitória de", jogador1 + "!")
+                        partida_atual += 1
+
+                    elif vencedor == "2":
+                        vitorias_adversario += 1
+                        print("Vitória de", jogador2 + "!")
+                        partida_atual += 1
+
+                    else:
+                        print("Entrada inválida! Digite 1 ou 2.")
+
+                print("\n===== FIM DO CAMPEONATO =====")
+                print("Placar final:")
+                print(jogador1, vitorias_jogador, "x",
+                      vitorias_adversario, jogador2)
+
+                if vitorias_jogador >= vitorias_necessarias:
+                    print("O CAMPEÃO É:", jogador1.upper() + "!")
+                else:
+                    print("O CAMPEÃO É:", jogador2.upper() + "!")
+
+    elif opcao == "2":
+        print("\n===== REGRAS =====")
+        print("Melhor de 3: vence quem ganhar 2 partidas.")
+        print("Melhor de 5: vence quem ganhar 3 partidas.")
+        print("Personalizado: vence quem ganhar a maioria das partidas.")
+        print("O campeonato termina quando alguém atingir as vitórias necessárias.")
+
+    elif opcao == "3":
+        print("\n===== PLACAR =====")
+        print("Vitórias de", jogador1 or "Jogador 1", ":", vitorias_jogador)
+        print("Vitórias de", jogador2 or "Jogador 2", ":", vitorias_adversario)
+
+    else:
+        print("Opção inválida!")
+
+    print("\n===== CAMPEONATO =====")
+    print("1 - Jogar")
+    print("2 - Ver regras")
+    print("3 - Ver placar")
+    print("4 - Sair")
+
+    opcao = input("Escolha uma opção: ")
+
+print("\nObrigado por jogar!")
 
