@@ -1,4 +1,3 @@
-
 print("===== CAMPEONATO DE JOGO DA VELHA =====")
 print("1 - Jogar")
 print("2 - Ver regras")
@@ -10,7 +9,7 @@ vitorias_adversario = 0
 jogador1 = ""
 jogador2 = ""
 
-opcao = input("Escolha uma opção:")
+opcao = input("Escolha uma opção: ")
 
 while opcao != "4":
 
@@ -21,7 +20,7 @@ while opcao != "4":
         print("2 - Melhor de 5")
         print("3 - Personalizado")
 
-        modo = input("Escolha o tipo de campeonato:")
+        modo = input("Escolha o tipo de campeonato: ")
 
         if modo == "1":
             n_partidas = 3
@@ -207,13 +206,20 @@ while opcao != "4":
 
     elif opcao == "2":
 
-        print("\n===== REGRAS =====")
-        print("Melhor de 3: vence quem ganhar 2 partidas.")
-        print("Melhor de 5: vence quem ganhar 3 partidas.")
-        print("Personalizado: vence quem ganhar a maioria.")
-        print("O jogador X começa a partida.")
-        print("Cada vitória vale um ponto.")
-        print("Empate não conta ponto.")
+        print("\n===== REGRAS DO CAMPEONATO =====")
+        print("1. Tipos de Campeonato:")
+        print("   - Melhor de 3: Vence quem ganhar 2 partidas.")
+        print("   - Melhor de 5: Vence quem ganhar 3 partidas.")
+        print("   - Personalizado: Vence quem alcançar a maioria dos pontos necessários.")
+        print("\n2. Dinâmica do Jogo:")
+        print("   - O Jogador 1 joga sempre com o 'X' e começa a partida.")
+        print("   - O Jogador 2 joga com o 'O'.")
+        print("   - O tabuleiro possui posições numeradas de 1 a 9.")
+        print("\n3. Pontuação e Empates:")
+        print("   - Cada vitória vale 1 ponto para o placar da rodada.")
+        print("   - Caso dê velha (empate no tabuleiro), a partida termina sem pontuação para ninguém.")
+        print("\n4. Objetivo:")
+        print("   - Alinhar 3 símbolos iguais (horizontal, vertical ou diagonal) antes do adversário.")
 
     elif opcao == "3":
 
@@ -230,7 +236,7 @@ while opcao != "4":
     print("3 - Ver placar")
     print("4 - Sair")
 
-    opcao = input("Escolha uma opção:")
+    opcao = input("Escolha uma opção: ")
 
 print("\nObrigado por jogar!")
 print("Programa encerrado!")
