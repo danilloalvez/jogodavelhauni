@@ -11,7 +11,7 @@ while True:
     print("3 - Ver placar")
     print("4 - Sair")
 
-    opcao = input("Escolha uma opção: ")
+    opcao = input("Escolha uma opção:")
 
     if opcao == "4":
         print("\nObrigado por jogar!")
@@ -24,7 +24,7 @@ while True:
         print("2 - Melhor de 5")
         print("3 - Personalizado")
 
-        modo = input("Escolha o tipo de campeonato: ")
+        modo = input("Escolha o tipo de campeonato:")
 
         n_partidas = 0
 
@@ -33,7 +33,7 @@ while True:
         elif modo == "2":
             n_partidas = 5
         elif modo == "3":
-            # Loop seguro para garantir que o usuário digite um número ímpar válido
+        
             while True:
                 try:
                     n_partidas = int(input("Digite o número ímpar de partidas: "))
