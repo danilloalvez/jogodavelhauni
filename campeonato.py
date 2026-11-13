@@ -12,7 +12,7 @@ while True:
     print("4 - Sair")
 
     opcao = input("Escolha uma opção:")
-
+    
     if opcao == "4":
         print("\nObrigado por jogar!")
         print("Programa encerrado!")
@@ -118,7 +118,7 @@ while True:
                             tabuleiro[linha][coluna] = jogador_atual
                             vitoria = False
 
-                            # Verificação de vitórias (Linhas e Colunas)
+                        
                             for i in range(3):
                                 if (
                                     tabuleiro[i][0] != " "
@@ -134,7 +134,7 @@ while True:
                                 ):
                                     vitoria = True
 
-                            # Diagonais
+                            
                             if (
                                 tabuleiro[0][0] != " "
                                 and tabuleiro[0][0] == tabuleiro[1][1]
