@@ -5,15 +5,13 @@ vitorias_adversario = 0
 jogador1 = ""
 jogador2 = ""
 
-# Loop principal do menu controlado por while
 executando_programa = True
 while executando_programa:
     print("\n1 - Jogar")
     print("2 - Ver regras")
     print("3 - Ver placar")
     print("4 - Sair")
-
-    # Validação da opção do menu sem usar try/except
+    
     opcao_valida = False
     opcao = ""
     while opcao_valida == False:
@@ -52,11 +50,11 @@ while executando_programa:
         elif modo == "2":
             n_partidas = 5
         elif modo == "3":
-            # Validação do número ímpar personalizado sem try/except
+    
             numero_valido = False
             while numero_valido == False:
                 entrada_impar = input("Digite o número ímpar de partidas (ex: 7, 9): ")
-                # Verificamos se é um número válido comparando strings de 1 a 99 (ímpares)
+    
                 eh_numero = False
                 for n in range(1, 100, 2):
                     if entrada_impar == str(n):
@@ -86,7 +84,6 @@ while executando_programa:
                 and vitorias_adversario < vitorias_necessarias
             ):
 
-                # Tabuleiro declarado por extenso (matriz 3x3)
                 tabuleiro = [
                     [" ", " ", " "],
                     [" ", " ", " "],
@@ -108,8 +105,7 @@ while executando_programa:
                     print(" 7 | 8 | 9")
 
                     print("\nTabuleiro atual:")
-
-                    # Exibição da matriz com for aninhado (Exigência do item 4 e 5)
+            
                     for i in range(3):
                         linha_str = " "
                         for j in range(3):
@@ -140,14 +136,14 @@ while executando_programa:
                     linha = (posicao - 1) // 3
                     coluna = (posicao - 1) % 3
 
-                    # Verifica se a casa está ocupada
+                
                     if tabuleiro[linha][coluna] != " ":
                         print("Posição ocupada! Escolha outra.")
                     else:
                         tabuleiro[linha][coluna] = jogador_atual
                         vitoria = False
 
-                        # Verificação automática de vitória por laços (Exigência do item 4 e Explicação 2)
+        
                         for i in range(3):
                             if (
                                 tabuleiro[i][0] != " "
@@ -198,7 +194,7 @@ while executando_programa:
 
                             jogando = False
                         else:
-                            # Contagem de espaços vazios com for aninhado para verificar empate
+
                             espacos_vazios = 0
                             for i in range(3):
                                 for j in range(3):
