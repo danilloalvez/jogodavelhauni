@@ -121,7 +121,6 @@ while executando_programa:
                     else:
                         print("\nVez de", jogador2, "(O)")
 
-                    # Validação estrita da posição (1 a 9) sem usar try/except
                     posicao_valida = False
                     posicao_str = ""
                     while posicao_valida == False:
