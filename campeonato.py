@@ -1,4 +1,3 @@
-
 print("===== CAMPEONATO DE JOGO DA VELHA =====")
 
 vitorias_jogador = 0
@@ -6,18 +5,29 @@ vitorias_adversario = 0
 jogador1 = ""
 jogador2 = ""
 
-while True:
+# Loop principal do menu controlado por while
+executando_programa = True
+while executando_programa:
     print("\n1 - Jogar")
     print("2 - Ver regras")
     print("3 - Ver placar")
     print("4 - Sair")
 
-    opcao = input("Escolha uma opção:")
+    # Validação da opção do menu sem usar try/except
+    opcao_valida = False
+    opcao = ""
+    while opcao_valida == False:
+        opcao = input("Escolha uma opção: ")
+        for n in range(1, 5):
+            if opcao == str(n):
+                opcao_valida = True
+        if opcao_valida == False:
+            print("Opção inválida! Escolha uma opção entre 1 e 4.")
 
     if opcao == "4":
         print("\nObrigado por jogar!")
         print("Programa encerrado!")
-        break
+        executando_programa = False
 
     elif opcao == "1":
         print("\n===== INICIAR CAMPEONATO =====")
@@ -25,7 +35,15 @@ while True:
         print("2 - Melhor de 5")
         print("3 - Personalizado")
 
-        modo = input("Escolha o tipo de campeonato:")
+        modo_valido = False
+        modo = ""
+        while modo_valido == False:
+            modo = input("Escolha o tipo de campeonato: ")
+            for n in range(1, 4):
+                if modo == str(n):
+                    modo_valido = True
+            if modo_valido == False:
+                print("Opção inválida! Digite 1, 2 ou 3.")
 
         n_partidas = 0
 
@@ -34,25 +52,25 @@ while True:
         elif modo == "2":
             n_partidas = 5
         elif modo == "3":
-
-            while True:
-                try:
-                    n_partidas = int(input("Digite o número ímpar de partidas: "))
-
-                    if n_partidas % 2 != 0 and n_partidas > 0:
-                        break
-                    else:
-                        print("Digite um número ímpar maior que zero!")
-
-                except ValueError:
-                    print("Entrada inválida. Digite apenas números inteiros.")
-
-        else:
-            print("Opção inválida!")
+            # Validação do número ímpar personalizado sem try/except
+            numero_valido = False
+            while numero_valido == False:
+                entrada_impar = input("Digite o número ímpar de partidas (ex: 7, 9): ")
+                # Verificamos se é um número válido comparando strings de 1 a 99 (ímpares)
+                eh_numero = False
+                for n in range(1, 100, 2):
+                    if entrada_impar == str(n):
+                        eh_numero = True
+                
+                if eh_numero:
+                    n_partidas = int(entrada_impar)
+                    numero_valido = True
+                else:
+                    print("Por favor, digite um número ímpar maior que zero!")
 
         if n_partidas > 0:
-            jogador1 = input("Nome do Jogador 1:")
-            jogador2 = input("Nome do Jogador 2:")
+            jogador1 = input("Nome do Jogador 1: ")
+            jogador2 = input("Nome do Jogador 2: ")
 
             vitorias_jogador = 0
             vitorias_adversario = 0
@@ -68,6 +86,7 @@ while True:
                 and vitorias_adversario < vitorias_necessarias
             ):
 
+                # Tabuleiro declarado por extenso (matriz 3x3)
                 tabuleiro = [
                     [" ", " ", " "],
                     [" ", " ", " "],
@@ -88,115 +107,109 @@ while True:
                     print("---|---|---")
                     print(" 7 | 8 | 9")
 
-                    print("\nTabuleiro:")
+                    print("\nTabuleiro atual:")
 
+                    # Exibição da matriz com for aninhado (Exigência do item 4 e 5)
                     for i in range(3):
                         linha_str = " "
                         for j in range(3):
-                            linha_str += tabuleiro[i][j]
+                            linha_str = linha_str + tabuleiro[i][j]
                             if j < 2:
-                                linha_str += " | "
-
+                                linha_str = linha_str + " | "
                         print(linha_str)
-
                         if i < 2:
                             print("---|---|---")
 
                     if jogador_atual == "X":
-                        print("\nVez de", jogador1)
+                        print("\nVez de", jogador1, "(X)")
                     else:
-                        print("\nVez de", jogador2)
+                        print("\nVez de", jogador2, "(O)")
 
-                    try:
-                        posicao = int(input("Escolha uma posição (1-9): "))
-                    except ValueError:
-                        print("Por favor, digite um número entre 1 e 9!")
-                        continue
+                    # Validação estrita da posição (1 a 9) sem usar try/except
+                    posicao_valida = False
+                    posicao_str = ""
+                    while posicao_valida == False:
+                        posicao_str = input("Escolha uma posição (1-9): ")
+                        for n in range(1, 10):
+                            if posicao_str == str(n):
+                                posicao_valida = True
+                        if posicao_valida == False:
+                            print("Entrada inválida! Digite um número de 1 a 9.")
 
-                    if posicao < 1 or posicao > 9:
-                        print("Posição inválida!")
+                    posicao = int(posicao_str)
+                    linha = (posicao - 1) // 3
+                    coluna = (posicao - 1) % 3
 
+                    # Verifica se a casa está ocupada
+                    if tabuleiro[linha][coluna] != " ":
+                        print("Posição ocupada! Escolha outra.")
                     else:
-                        linha = (posicao - 1) // 3
-                        coluna = (posicao - 1) % 3
+                        tabuleiro[linha][coluna] = jogador_atual
+                        vitoria = False
 
-                        if tabuleiro[linha][coluna] != " ":
-                            print("Posição ocupada!")
+                        # Verificação automática de vitória por laços (Exigência do item 4 e Explicação 2)
+                        for i in range(3):
+                            if (
+                                tabuleiro[i][0] != " "
+                                and tabuleiro[i][0] == tabuleiro[i][1]
+                                and tabuleiro[i][1] == tabuleiro[i][2]
+                            ):
+                                vitoria = True
 
-                        else:
-                            tabuleiro[linha][coluna] = jogador_atual
-                            vitoria = False
+                            if (
+                                tabuleiro[0][i] != " "
+                                and tabuleiro[0][i] == tabuleiro[1][i]
+                                and tabuleiro[1][i] == tabuleiro[2][i]
+                            ):
+                                vitoria = True
 
+                        if (
+                            tabuleiro[0][0] != " "
+                            and tabuleiro[0][0] == tabuleiro[1][1]
+                            and tabuleiro[1][1] == tabuleiro[2][2]
+                        ):
+                            vitoria = True
+
+                        if (
+                            tabuleiro[0][2] != " "
+                            and tabuleiro[0][2] == tabuleiro[1][1]
+                            and tabuleiro[1][1] == tabuleiro[2][0]
+                        ):
+                            vitoria = True
+
+                        if vitoria:
+                            print("\n===== RESULTADO DA PARTIDA =====")
                             for i in range(3):
-                                if (
-                                    tabuleiro[i][0] != " "
-                                    and tabuleiro[i][0] == tabuleiro[i][1]
-                                    and tabuleiro[i][1] == tabuleiro[i][2]
-                                ):
-                                    vitoria = True
+                                linha_str = " "
+                                for j in range(3):
+                                    linha_str = linha_str + tabuleiro[i][j]
+                                    if j < 2:
+                                        linha_str = linha_str + " | "
+                                print(linha_str)
+                                if i < 2:
+                                    print("---|---|---")
 
-                                if (
-                                    tabuleiro[0][i] != " "
-                                    and tabuleiro[0][i] == tabuleiro[1][i]
-                                    and tabuleiro[1][i] == tabuleiro[2][i]
-                                ):
-                                    vitoria = True
-
-                            if (
-                                tabuleiro[0][0] != " "
-                                and tabuleiro[0][0] == tabuleiro[1][1]
-                                and tabuleiro[1][1] == tabuleiro[2][2]
-                            ):
-                                vitoria = True
-
-                            if (
-                                tabuleiro[0][2] != " "
-                                and tabuleiro[0][2] == tabuleiro[1][1]
-                                and tabuleiro[1][1] == tabuleiro[2][0]
-                            ):
-                                vitoria = True
-
-                            if vitoria:
-                                print("\n===== RESULTADO DA PARTIDA =====")
-
-                                for i in range(3):
-                                    linha_str = " "
-                                    for j in range(3):
-                                        linha_str += tabuleiro[i][j]
-                                        if j < 2:
-                                            linha_str += " | "
-
-                                    print(linha_str)
-
-                                    if i < 2:
-                                        print("---|---|---")
-
-                                if jogador_atual == "X":
-                                    print("Vitória de", jogador1)
-                                    vitorias_jogador += 1
-                                else:
-                                    print("Vitória de", jogador2)
-                                    vitorias_adversario += 1
-
-                                jogando = False
-
+                            if jogador_atual == "X":
+                                print("Vitória de", jogador1)
+                                vitorias_jogador += 1
                             else:
-                                espacos_vazios = 0
+                                print("Vitória de", jogador2)
+                                vitorias_adversario += 1
 
-                                for i in range(3):
-                                    for j in range(3):
-                                        if tabuleiro[i][j] == " ":
-                                            espacos_vazios += 1
+                            jogando = False
+                        else:
+                            # Contagem de espaços vazios com for aninhado para verificar empate
+                            espacos_vazios = 0
+                            for i in range(3):
+                                for j in range(3):
+                                    if tabuleiro[i][j] == " ":
+                                        espacos_vazios += 1
 
-                                if espacos_vazios == 0:
-                                    print("\nEmpate! Ninguém pontuou.")
-                                    jogando = False
-
-                                else:
-                                    if jogador_atual == "X":
-                                        jogador_atual = "O"
-                                    else:
-                                        jogador_atual = "X"
+                            if espacos_vazios == 0:
+                                print("\nEmpate! Ninguém pontuou nesta rodada.")
+                                jogando = False
+                            else:
+                                jogador_atual = "O" if jogador_atual == "X" else "X"
 
                 print("\n===== PLACAR DO CAMPEONATO =====")
                 print(jogador1, ":", vitorias_jogador)
@@ -205,11 +218,10 @@ while True:
                 partida_atual += 1
 
             print("\n===== FIM DO CAMPEONATO =====")
-
             if vitorias_jogador > vitorias_adversario:
-                print("CAMPEÃO:", jogador1.upper())
+                print("CAMPEÃO:", jogador1)
             else:
-                print("CAMPEÃO:", jogador2.upper())
+                print("CAMPEÃO:", jogador2)
 
             print("Placar final:")
             print(jogador1, vitorias_jogador, "x", vitorias_adversario, jogador2)
@@ -219,21 +231,18 @@ while True:
         print("1. Tipos de Campeonato:")
         print("   - Melhor de 3: Vence quem ganhar 2 partidas.")
         print("   - Melhor de 5: Vence quem ganhar 3 partidas.")
-        print("   - Personalizado: Vence quem alcançar a maioria das partidas.")
+        print("   - Personalizado: Vence quem alcançar a maioria dos pontos necessários.")
         print("\n2. Dinâmica do Jogo:")
         print("   - O Jogador 1 joga sempre com o 'X' e começa a partida.")
         print("   - O Jogador 2 joga com o 'O'.")
         print("   - O tabuleiro possui posições numeradas de 1 a 9.")
         print("\n3. Pontuação e Empates:")
-        print("   - Cada vitória vale 1 ponto.")
-        print("   - Em caso de empate, ninguém pontua.")
+        print("   - Cada vitória vale 1 ponto para o placar da rodada.")
+        print("   - Caso dê velha (empate no tabuleiro), a partida termina sem pontuação para ninguém.")
         print("\n4. Objetivo:")
-        print("   - Alinhar 3 símbolos iguais na horizontal, vertical ou diagonal.")
+        print("   - Alinhar 3 símbolos iguais (horizontal, vertical ou diagonal) antes do adversário.")
 
     elif opcao == "3":
         print("\n===== PLACAR =====")
         print("Vitórias de", jogador1 or "Jogador 1", ":", vitorias_jogador)
         print("Vitórias de", jogador2 or "Jogador 2", ":", vitorias_adversario)
-
-    else:
-        print("Opção inválida! Escolha uma opção entre 1 e 4.")
