@@ -11,15 +11,15 @@ while executando_programa:
     print("2 - Ver regras")
     print("3 - Ver placar")
     print("4 - Sair")
-    
+
     opcao_valida = False
     opcao = ""
-    while opcao_valida == False:
+    while not opcao_valida:
         opcao = input("Escolha uma opção: ")
         for n in range(1, 5):
             if opcao == str(n):
                 opcao_valida = True
-        if opcao_valida == False:
+        if not opcao_valida:
             print("Opção inválida! Escolha uma opção entre 1 e 4.")
 
     if opcao == "4":
@@ -35,12 +35,12 @@ while executando_programa:
 
         modo_valido = False
         modo = ""
-        while modo_valido == False:
+        while not modo_valido:
             modo = input("Escolha o tipo de campeonato: ")
             for n in range(1, 4):
                 if modo == str(n):
                     modo_valido = True
-            if modo_valido == False:
+            if not modo_valido:
                 print("Opção inválida! Digite 1, 2 ou 3.")
 
         n_partidas = 0
@@ -50,16 +50,17 @@ while executando_programa:
         elif modo == "2":
             n_partidas = 5
         elif modo == "3":
-    
             numero_valido = False
-            while numero_valido == False:
-                entrada_impar = input("Digite o número ímpar de partidas (ex: 7, 9): ")
-    
+            while not numero_valido:
+                entrada_impar = input(
+                    "Digite o número ímpar de partidas (ex: 7, 9): "
+                )
+
                 eh_numero = False
                 for n in range(1, 100, 2):
                     if entrada_impar == str(n):
                         eh_numero = True
-                
+
                 if eh_numero:
                     n_partidas = int(entrada_impar)
                     numero_valido = True
@@ -87,7 +88,7 @@ while executando_programa:
                 tabuleiro = [
                     [" ", " ", " "],
                     [" ", " ", " "],
-                    [" ", " ", " "]
+                    [" ", " ", " "],
                 ]
 
                 jogador_atual = "X"
@@ -105,7 +106,7 @@ while executando_programa:
                     print(" 7 | 8 | 9")
 
                     print("\nTabuleiro atual:")
-            
+
                     for i in range(3):
                         linha_str = " "
                         for j in range(3):
@@ -123,26 +124,24 @@ while executando_programa:
 
                     posicao_valida = False
                     posicao_str = ""
-                    while posicao_valida == False:
+                    while not posicao_valida:
                         posicao_str = input("Escolha uma posição (1-9): ")
                         for n in range(1, 10):
                             if posicao_str == str(n):
                                 posicao_valida = True
-                        if posicao_valida == False:
+                        if not posicao_valida:
                             print("Entrada inválida! Digite um número de 1 a 9.")
 
                     posicao = int(posicao_str)
                     linha = (posicao - 1) // 3
                     coluna = (posicao - 1) % 3
 
-                
                     if tabuleiro[linha][coluna] != " ":
                         print("Posição ocupada! Escolha outra.")
                     else:
                         tabuleiro[linha][coluna] = jogador_atual
                         vitoria = False
 
-        
                         for i in range(3):
                             if (
                                 tabuleiro[i][0] != " "
@@ -193,7 +192,6 @@ while executando_programa:
 
                             jogando = False
                         else:
-
                             espacos_vazios = 0
                             for i in range(3):
                                 for j in range(3):
@@ -201,10 +199,14 @@ while executando_programa:
                                         espacos_vazios += 1
 
                             if espacos_vazios == 0:
-                                print("\nEmpate! Ninguém pontuou nesta rodada.")
+                                print(
+                                    "\nEmpate! Ninguém pontuou nesta rodada."
+                                )
                                 jogando = False
                             else:
-                                jogador_atual = "O" if jogador_atual == "X" else "X"
+                                jogador_atual = (
+                                    "O" if jogador_atual == "X" else "X"
+                                )
 
                 print("\n===== PLACAR DO CAMPEONATO =====")
                 print(jogador1, ":", vitorias_jogador)
@@ -215,27 +217,46 @@ while executando_programa:
             print("\n===== FIM DO CAMPEONATO =====")
             if vitorias_jogador > vitorias_adversario:
                 print("CAMPEÃO:", jogador1)
-            else:
+            elif vitorias_adversario > vitorias_jogador:
                 print("CAMPEÃO:", jogador2)
+            else:
+                print("O campeonato terminou em EMPATE!")
 
             print("Placar final:")
-            print(jogador1, vitorias_jogador, "x", vitorias_adversario, jogador2)
+            print(
+                jogador1,
+                vitorias_jogador,
+                "x",
+                vitorias_adversario,
+                jogador2,
+            )
 
     elif opcao == "2":
         print("\n===== REGRAS DO CAMPEONATO =====")
         print("1. Tipos de Campeonato:")
         print("   - Melhor de 3: Vence quem ganhar 2 partidas.")
         print("   - Melhor de 5: Vence quem ganhar 3 partidas.")
-        print("   - Personalizado: Vence quem alcançar a maioria dos pontos necessários.")
+        print(
+            "   - Personalizado: Vence quem alcançar a maioria dos pontos necessários."
+        )
         print("\n2. Dinâmica do Jogo:")
         print("   - O Jogador 1 joga sempre com o 'X' e começa a partida.")
         print("   - O Jogador 2 joga com o 'O'.")
         print("   - O tabuleiro possui posições numeradas de 1 a 9.")
         print("\n3. Pontuação e Empates:")
         print("   - Cada vitória vale 1 ponto para o placar da rodada.")
-        print("   - Caso dê velha (empate no tabuleiro), a partida termina sem pontuação para ninguém.")
+        print(
+            "   - Caso dê velha (empate no tabuleiro), a partida termina sem pontuação para ninguém."
+        )
         print("\n4. Objetivo:")
-        print("   - Alinhar 3 símbolos iguais (horizontal, vertical ou diagonal) antes do adversário.")
+        print(
+            "   - Alinhar 3 símbolos iguais (horizontal, vertical ou diagonal) antes do adversário."
+        )
+
+    elif opcao == "3":
+        print("\n===== PLACAR =====")
+        print("Vitórias de", jogador1 or "Jogador 1", ":", vitorias_jogador)
+        print("Vitórias de", jogador2 or "Jogador 2", ":", vitorias_adversario)
 
     elif opcao == "3":
         print("\n===== PLACAR =====")
